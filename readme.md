@@ -1,39 +1,32 @@
 # Microservices JWT CRUD Ecosystem
 
-This is an educational project designed to demonstrate the implementation of a modern, secure, and scalable distributed system using **ASP.NET Core (8.0/9.0)**. The project focuses on combining **Microservices Architecture**, **JWT Authentication/Authorization**, and efficient **CRUD Operations**.
+This is an educational project demonstrating a secure, scalable distributed architecture built with **ASP.NET Core (8.0/9.0)** and **PostgreSQL**. The project implements **JWT Authentication**, decoupled services, and clean repository-driven **CRUD Operations**.
+
+## 📁 Project Structure
+
+```text
+./
+├── Controllers/               # REST Endpoints (Auth, Cards, Users)
+├── Data/                      # Database Layer
+│   ├── Interfaces/            # Repository Abstractions
+│   ├── Models/                # Database Entities (User, Card)
+│   └── Repositories/          # EF Core Repository Implementations
+├── Interfaces/                # Core Service Contracts (IJwtService)
+├── Service/                   # Business Logic & Auth Implementations
+├── Migrations/                # EF Core Database Migrations
+├── Models/                    # DTOs & API Response Models
+├── Program.cs                 # Application Entry Point & DI Configuration
+├── Dockerfile                 # Application Container Specification
+└── docker-compose.yaml        # Multi-container Orchestration
+```
 
 ## 🚀 Key Features
 
-* **Microservices Architecture:** Decoupled, autonomous services focused on specific business capabilities.
-* **Stateless JWT Authentication:** Secure token-based access control with asymmetric/symmetric encryption via `JwtProvider`.
-* **Role-Based Authorization:** Secure endpoints protected by standard dynamic attributes (`[Authorize(Roles = "...")]`).
-* **Clean CRUD Operations:** Standardized, high-performance database interactions within individual service boundaries.
-* **Best Practices:** Dependency Injection (DI) with scoped lifecycles, environment-based configurations, and clean code separation.
-
----
-
-## 🏗️ Architecture Overview
-
-The system is split into independent services communicating asynchronously or via lightweight HTTP protocols:
-
-```text
-               ┌────────────────────────┐
-               │      Client / UI       │
-               └───────────┬────────────┘
-                           │  HTTP Requests
-                           ▼
-               ┌────────────────────────┐
-               │      API Gateway       │ (Token Validation)
-               └─────┬────────────┬─────┘
-                     │            │
-   ┌─────────────────┴─┐        ┌─┴─────────────────┐
-   │   Auth Service    │        │   CRUD Service    │
-   │   (JWT Issuer)    │        │ (Business Logic)  │
-   └───────────────────┘        └───────────────────┘
-```
-
-* **Auth Service:** Validates user credentials and issues short-lived JWT Access Tokens.
-* **CRUD Service(s):** Manages core business resources, fully protected and accessible only with a valid Bearer token.
+* **JWT Authentication:** Custom stateless `JwtService` managing secure token generation and validation.
+* **Generic Repository Pattern:** Abstracted Data Access Layer using decoupled Interfaces and EF Core repositories.
+* **Database Migrations:** Automated schema management for PostgreSQL using EF Core Migrations.
+* **Containerized Environment:** Fully production-ready multi-container setup running via Docker Compose.
+* **Secure Environment Variables:** Zero hardcoded secrets; configuration is driven purely via environment variables.
 
 ---
 
@@ -41,18 +34,29 @@ The system is split into independent services communicating asynchronously or vi
 
 * **Backend Framework:** ASP.NET Core (Web API)
 * **Security:** Microsoft.AspNetCore.Authentication.JwtBearer, System.IdentityModel.Tokens.Jwt
-* **Data Access:** Entity Framework Core (SQL Server / PostgreSQL)
-* **Containerization:** Docker & Docker Compose (Planned/Implemented)
+* **Database:** PostgreSQL
+* **Data Access:** Entity Framework Core
+* **Containerization:** Docker & Docker Compose
 
 ---
 
-## 🔧 Getting Started
+## 🔧 Environment Configuration
 
-### Prerequisites
-* [.NET SDK (8.0 or 9.0)](https://microsoft.com)
-* [Git](https://git-scm.com)
+The application uses environment variables for infrastructure bindings, matching double underscores (`__`) to map nested JSON fields in ASP.NET Core:
 
-### Installation & Run
+```env
+POSTGRES_USER=dbuser
+POSTGRES_PASSWORD=zxcursed
+POSTGRES_DB=mydb
+ConnectionStrings__DefaultConnection="Host=db;Port=5432;Database=mydb;Username=dbuser;Password=zxcursed"
+Jwt__Key=1029384756Console.WriteLinezxcursed
+```
+
+---
+
+## ⚡ Deployment with Docker Compose
+
+To spin up the entire ecosystem (Web API + PostgreSQL Database) with a single command:
 
 1. **Clone the repository:**
    ```bash
@@ -60,77 +64,10 @@ The system is split into independent services communicating asynchronously or vi
    cd microservices-jwt-crud
    ```
 
-2. **Configure environment settings:**
-   Make sure to update `appsettings.json` in your services with a secure JWT Key:
-   ```json
-   "Jwt": {
-     "Key": "YourSuperSecretBackEndKeyMustBeAtLeast32CharactersLong!",
-     "Issuer": "MicroservicesAuth",
-     "Audience": "MicroservicesClients",
-     "ExpiryMinutes": "60"
-   }
-   ```
-
-3. **Restore and run the project:**
+2. **Launch the containers:**
    ```bash
-   dotnet restore
-   dotnet run --project src/YourMainServiceFolder
+   docker compose up --build -d
    ```
 
----
-
-## 🔒 Security Configuration Example
-
-Every token contains standard claims for identity tracking:
-* `sub` — Unique User Identifier
-* `email` — User Email Address
-* `role` — Assigned Access Role (e.g., `Admin`, `User`)
-
-Endpoints are securely protected with:
-```csharp
-[HttpGet("secure-data")]
-[Authorize(Roles = "Admin")]
-public IActionResult GetProtectedData() => Ok("Access Granted.");
-```
-
-```
-./
-├── appsettings.Development.json
-├── appsettings.json
-├── aspcorestudy.csproj
-├── Controllers
-│   ├── AuthController.cs
-│   ├── CardController.cs
-│   ├── Random.cs
-│   └── UserController.cs
-├── Data
-│   ├── AppDbContext.cs
-│   ├── Interfaces
-│   │   └── DbRepository.cs
-│   ├── Models
-│   │   ├── CardModel.cs
-│   │   └── UserModel.cs
-│   └── Repositories
-│       └── EfRepositiory.cs
-├── docker-compose.yaml
-├── Dockerfile
-├── Interfaces
-│   └── IJwtService.cs
-├── Migrations
-│   ├── 20260707133535_InitialCreate.cs
-│   ├── 20260707133535_InitialCreate.Designer.cs
-│   └── AppDbContextModelSnapshot.cs
-├── Models
-│   ├── RegistrationResponse.cs
-│   └── ResponseModels
-│       ├── CardResponse.cs
-│       └── UserResponse.cs
-├── Program.cs
-├── Properties
-│   └── launchSettings.json
-├── readme.md
-└── Service
-    ├── AuthService.cs
-    ├── JwtService.cs
-    └── RandomService.cs
-```
+3. **Verify the environment:**
+   The Web API will be available at `http://localhost:5000` (or your configured Docker exposed port).
