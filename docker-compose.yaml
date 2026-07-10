@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: asccore_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - ConnectionStrings__DefaultConnection=${ConnectionStrings__DefaultConnection}
+      - ASPNETCORE_URLS=http://+:5000
+      -  Jwt__key=${Jwt__Key}
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - dbstorage:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 3s
+      timeout: 3s
+      retries: 5
+volumes:
+  dbstorage:
