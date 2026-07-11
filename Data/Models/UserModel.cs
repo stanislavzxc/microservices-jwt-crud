@@ -1,4 +1,4 @@
-using aspcorestudy.Models.ResponseModels;
+using aspcorestudy.DTOs.ResponseModels;
 
 namespace aspcorestudy.Data.Models;
 
@@ -9,6 +9,8 @@ public class UserModel
     public string? email {get;set;}
 
     public string? role {get;set;}
+
+    public string? password {get;set;}
     public List<CardModel> Cards {get;set;} = new();
 
 }

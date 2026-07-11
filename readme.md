@@ -14,7 +14,8 @@ This is an educational project demonstrating a secure, scalable distributed arch
 ├── Interfaces/                # Core Service Contracts (IJwtService)
 ├── Service/                   # Business Logic & Auth Implementations
 ├── Migrations/                # EF Core Database Migrations
-├── Models/                    # DTOs & API Response Models
+├── DTOs/                      # Repository Abstractions.
+│   ├── ResponseModels/        # DTOs & API Response Models
 ├── Program.cs                 # Application Entry Point & DI Configuration
 ├── Dockerfile                 # Application Container Specification
 └── docker-compose.yaml        # Multi-container Orchestration

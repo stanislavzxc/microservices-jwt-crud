@@ -12,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var jwtsettings = builder.Configuration.GetSection("Jwt");
 var jwt_key = Encoding.UTF8.GetBytes(jwtsettings["key"]!);
+// var jwt_key = Encoding.UTF8.GetBytes(jwtsettings["key"]! ?? "SuperSecretDefaultMigrationKey123456789!!!");
+
 
 builder.Services.AddAuthentication(options => {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -30,11 +32,11 @@ builder.Services.AddAuthentication(options => {
    }; 
 });
 
-builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddControllers();
 builder.Services.AddTransient<RandomService>();
 builder.Services.AddScoped(typeof(iRepository<>), typeof(EfRepository<>));
-
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>

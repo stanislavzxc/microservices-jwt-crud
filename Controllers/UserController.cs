@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using aspcorestudy.Models.ResponseModels;
+using aspcorestudy.DTOs.ResponseModels;
 using aspcorestudy.Data.Models;
 using aspcorestudy.Data.Interfaces;
 
