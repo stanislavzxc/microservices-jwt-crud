@@ -1,4 +1,4 @@
-namespace aspcorestudy.Data.Interfaces;
+namespace microservices_jwt_crud.Data.Interfaces;
 
 public interface iRepository<T> where T : class
 {

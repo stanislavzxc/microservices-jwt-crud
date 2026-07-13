@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using aspcorestudy.Controllers;
+using microservices_jwt_crud.Controllers;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 [ApiController]

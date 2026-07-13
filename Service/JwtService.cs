@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.IdentityModel.Tokens;
-using aspcorestudy.Interfaces;
+using microservices_jwt_crud.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 
 public class JwtService(IConfiguration config) : IJwtService

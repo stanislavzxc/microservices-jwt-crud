@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
-using aspcorestudy.DTOs.ResponseModels;
-using aspcorestudy.Data.Models;
-using aspcorestudy.Data.Interfaces;
+using microservices_jwt_crud.DTOs.ResponseModels;
+using microservices_jwt_crud.Data.Models;
+using microservices_jwt_crud.Data.Interfaces;
 
-namespace aspcorestudy.Controllers;
+namespace microservices_jwt_crud.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

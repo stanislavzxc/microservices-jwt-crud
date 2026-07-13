@@ -1,6 +1,6 @@
 using System.Security.Claims;
 
-namespace aspcorestudy.Interfaces;
+namespace microservices_jwt_crud.Interfaces;
 
 public interface IJwtService
 {

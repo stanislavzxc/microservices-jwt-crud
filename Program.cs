@@ -1,12 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using aspcorestudy.Data;
-using aspcorestudy.Data.Interfaces;
-using aspcorestudy.Data.Repositories;
+using microservices_jwt_crud.Data;
+using microservices_jwt_crud.Data.Interfaces;
+using microservices_jwt_crud.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using aspcorestudy.Interfaces;
-using aspcorestudy.Service;
+using microservices_jwt_crud.Interfaces;
+using microservices_jwt_crud.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +39,7 @@ builder.Services.AddTransient<RandomService>();
 builder.Services.AddScoped(typeof(iRepository<>), typeof(EfRepository<>));
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<ICardService, CardService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

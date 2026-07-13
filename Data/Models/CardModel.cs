@@ -1,4 +1,4 @@
-namespace aspcorestudy.Data.Models;
+namespace microservices_jwt_crud.Data.Models;
 
 public class CardModel
 {

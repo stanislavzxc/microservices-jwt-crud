@@ -1,6 +1,14 @@
 # Microservices JWT CRUD Ecosystem
 
-This is an educational project demonstrating a secure, scalable distributed architecture built with **ASP.NET Core (8.0/9.0)** and **PostgreSQL**. The project implements **JWT Authentication**, decoupled services, and clean repository-driven **CRUD Operations**.
+<p align="center">
+  <img src="https://img.shields.io/badge/ASP.NET_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="ASP.NET Core">
+  <img src="https://img.shields.io/badge/EF_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="EF Core">
+  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white" alt="C#">
+  <img src="https://img.shields.io/badge/CRUD-28A745?style=for-the-badge&logo=databricks&logoColor=white" alt="CRUD">
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT">
+</p>
+
+This is an educational project demonstrating a secure, scalable distributed architecture built with **ASP.NET Core (10.0)** and **PostgreSQL**. The project implements **JWT Authentication**, decoupled services, and clean repository-driven **CRUD Operations**.
 
 ## 📁 Project Structure
 
@@ -62,7 +70,7 @@ To spin up the entire ecosystem (Web API + PostgreSQL Database) with a single co
 1. **Clone the repository:**
    ```bash
    git clone https://github.com
-   cd microservices-jwt-crud
+   cd microservices_jwt_crud
    ```
 
 2. **Launch the containers:**

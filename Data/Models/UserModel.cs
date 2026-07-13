@@ -1,6 +1,6 @@
-using aspcorestudy.DTOs.ResponseModels;
+using microservices_jwt_crud.DTOs.ResponseModels;
 
-namespace aspcorestudy.Data.Models;
+namespace microservices_jwt_crud.Data.Models;
 
 public class UserModel
 {

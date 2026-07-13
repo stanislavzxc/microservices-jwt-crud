@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using aspcorestudy.Data.Interfaces;
+using microservices_jwt_crud.Data.Interfaces;
 
-namespace aspcorestudy.Data.Repositories;
+namespace microservices_jwt_crud.Data.Repositories;
 
 public class EfRepository<T> (AppDbContext context) : iRepository<T> where T : class
 {

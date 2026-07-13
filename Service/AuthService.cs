@@ -1,13 +1,13 @@
-using aspcorestudy.Data.Interfaces;
-using aspcorestudy.Data.Models;
-using aspcorestudy.Interfaces;
-using aspcorestudy.DTOs.ResponseModels;
+using microservices_jwt_crud.Data.Interfaces;
+using microservices_jwt_crud.Data.Models;
+using microservices_jwt_crud.Interfaces;
+using microservices_jwt_crud.DTOs.ResponseModels;
 using Microsoft.AspNetCore.Identity;
-using aspcorestudy.Data;
+using microservices_jwt_crud.Data;
 using Microsoft.EntityFrameworkCore;
-using aspcorestudy.DTOs.ResponseModel;
+using microservices_jwt_crud.DTOs.ResponseModel;
 
-namespace aspcorestudy.Service;
+namespace microservices_jwt_crud.Service;
 
 public class AuthService(iRepository<UserModel> DbActions, IJwtService jwt, AppDbContext context) : IAuthService
 {

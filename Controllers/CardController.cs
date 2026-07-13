@@ -1,28 +1,67 @@
 using Microsoft.AspNetCore.Mvc;
-using aspcorestudy.DTOs.ResponseModels;
+using microservices_jwt_crud.DTOs.ResponseModels;
+using microservices_jwt_crud.Service;
+using microservices_jwt_crud.Shared;
+using microservices_jwt_crud.Data.Models;
+using microservices_jwt_crud.Interfaces;
 
-namespace aspcorestudy.Controllers;
+namespace microservices_jwt_crud.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
 
-public class CardController : ControllerBase
+public class CardController(ICardService cardService) : ControllerBase
 {
-    [HttpGet]
-    public IActionResult GetCard()
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetCard(int id)
     {
-     var data = new Card(1,"first", 15.0, 1);
-     return Ok(data);
-    }
-    [HttpPost]
-    public IActionResult PostCard([FromBody] Card ReguestData)
-    {   
-        var result = new
+        Result<CardModel> result = await cardService.GetCard(id);
+        
+        if (!result.IsSuccess)
         {
-            message = "card created succesfully!",
-            created_at = DateTime.UtcNow
-        };
+            return NotFound(new {message = result.Error});
+        }
+        return Ok(result.Value);
 
-        return Created("api/Card", result);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllCards()
+    {
+        List<CardModel> result = await cardService.GetAllCards();
+        return Ok(new {result});
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateCard([FromBody] Card ReguestData)
+    {
+        Result<CardModel> result = await cardService.CreateCard(ReguestData);
+        return Ok(result.Value);
+    }
+
+
+    [HttpPut]
+    public async  Task<IActionResult> UpdateCard([FromBody] Card ReguestData)
+    {   
+        Result<CardModel> result = await cardService.UpdateCard(ReguestData);
+        
+        if (!result.IsSuccess)
+        {
+            return NotFound(new { message = result.Error });
+        }
+
+        return Ok(result.Value);
+    }
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> DeleteCard(int id)
+    {
+        Result result = await cardService.DeleteCard(id);
+        
+        if(!result.IsSuccess)
+        {
+            return NotFound(new {message = result.Error});
+        }
+
+        return Ok(new {message = $"Card with id {id} was deleted"});        
     }
 }

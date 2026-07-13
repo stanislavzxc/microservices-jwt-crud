@@ -1,8 +1,8 @@
-using aspcorestudy.DTOs.ResponseModel;
-using aspcorestudy.DTOs.ResponseModels;
+using microservices_jwt_crud.DTOs.ResponseModel;
+using microservices_jwt_crud.DTOs.ResponseModels;
 using Microsoft.AspNetCore.Identity.Data;
 
-namespace aspcorestudy.Interfaces;
+namespace microservices_jwt_crud.Interfaces;
 public interface IAuthService
 {
  public Task<RegistrationResponse> Registration(User user);  

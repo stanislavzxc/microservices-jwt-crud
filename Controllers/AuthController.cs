@@ -1,10 +1,10 @@
-using aspcorestudy.Service;
+using microservices_jwt_crud.Service;
 using Microsoft.AspNetCore.Mvc; 
-using aspcorestudy.DTOs.ResponseModels;
+using microservices_jwt_crud.DTOs.ResponseModels;
 using Microsoft.AspNetCore.Http.HttpResults;
-using aspcorestudy.DTOs.ResponseModel;
+using microservices_jwt_crud.DTOs.ResponseModel;
 
-namespace aspcorestudy.Controllers;
+namespace microservices_jwt_crud.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

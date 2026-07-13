@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using aspcorestudy.Data.Models;
+using microservices_jwt_crud.Data.Models;
 
-namespace aspcorestudy.Data;
+namespace microservices_jwt_crud.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
@@ -27,6 +27,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 .IsRequired();
             entity.HasIndex(u => u.email)
                 .IsUnique();
+
+            entity.Property(u => u.role)
+                .HasMaxLength(100)
+                .IsRequired();
+
+            entity.Property(u => u.password)
+                .IsRequired();
 
         });
 

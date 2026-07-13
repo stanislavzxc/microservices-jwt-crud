@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using aspcorestudy.Data;
+using microservices_jwt_crud.Data;
 
 #nullable disable
 
-namespace aspcorestudy.Migrations
+namespace microservices_jwt_crud.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20260707133535_InitialCreate")]
@@ -24,7 +24,7 @@ namespace aspcorestudy.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("aspcorestudy.Data.Models.CardModel", b =>
+            modelBuilder.Entity("microservices_jwt_crud.Data.Models.CardModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace aspcorestudy.Migrations
                     b.ToTable("cards", (string)null);
                 });
 
-            modelBuilder.Entity("aspcorestudy.Data.Models.UserModel", b =>
+            modelBuilder.Entity("microservices_jwt_crud.Data.Models.UserModel", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
@@ -76,9 +76,9 @@ namespace aspcorestudy.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("aspcorestudy.Data.Models.CardModel", b =>
+            modelBuilder.Entity("microservices_jwt_crud.Data.Models.CardModel", b =>
                 {
-                    b.HasOne("aspcorestudy.Data.Models.UserModel", "User")
+                    b.HasOne("microservices_jwt_crud.Data.Models.UserModel", "User")
                         .WithMany("Cards")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -86,7 +86,7 @@ namespace aspcorestudy.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("aspcorestudy.Data.Models.UserModel", b =>
+            modelBuilder.Entity("microservices_jwt_crud.Data.Models.UserModel", b =>
                 {
                     b.Navigation("Cards");
                 });
