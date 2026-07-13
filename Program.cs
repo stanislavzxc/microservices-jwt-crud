@@ -33,10 +33,16 @@ builder.Services.AddAuthentication(options => {
 });
 
 builder.Services.AddControllers();
+
 builder.Services.AddTransient<RandomService>();
+
 builder.Services.AddScoped(typeof(iRepository<>), typeof(EfRepository<>));
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -64,6 +70,9 @@ var app = builder.Build();
 
 app.UseAuthorization();
 app.UseAuthentication();
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 using (var scope = app.Services.CreateScope())
 {
