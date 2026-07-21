@@ -54,11 +54,11 @@ This is an educational project demonstrating a secure, scalable distributed arch
 The application uses environment variables for infrastructure bindings, matching double underscores (`__`) to map nested JSON fields in ASP.NET Core:
 
 ```env
-POSTGRES_USER=dbuser
-POSTGRES_PASSWORD=zxcursed
-POSTGRES_DB=mydb
-ConnectionStrings__DefaultConnection="Host=db;Port=5432;Database=mydb;Username=dbuser;Password=zxcursed"
-Jwt__Key=1029384756Console.WriteLinezxcursed
+POSTGRES_USER=YOURDATA
+POSTGRES_PASSWORD=YOURDATA
+POSTGRES_DB=YOURDATA
+ConnectionStrings__DefaultConnection="Host=db;Port=5432;Database=YOURDATA;Username=YOURDATA;Password=YOURDATA"
+Jwt__Key=YOURDATA(32 SYMBOLS)
 ```
 
 ---
