@@ -79,4 +79,4 @@ To spin up the entire ecosystem (Web API + PostgreSQL Database) with a single co
    ```
 
 3. **Verify the environment:**
-   The Web API will be available at `http://localhost:5000` (or your configured Docker exposed port).
+   The Web API will be available at `http://localhost:5000` (or your configured Docker exposed port)
