@@ -1,6 +1,4 @@
-<p align="center">
-   # Microservices JWT CRUD Ecosystem
-</p>
+# <p align="center">Microservices JWT CRUD Ecosystem</p>
 
 
 <p align="center">
