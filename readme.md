@@ -1,361 +1,82 @@
-## ⚠️ Disclaimer
-This project is created strictly for educational purposes and authorized security testing (penetration testing). 
-The developer assumes no liability for any misuse, damage, or illegal activities caused by this tool. 
-Only use AirBreaker on networks you own or have explicit, written permission to test.
+# Microservices JWT CRUD Ecosystem
 
+<p align="center">
+  <img src="https://img.shields.io/badge/ASP.NET_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="ASP.NET Core">
+  <img src="https://img.shields.io/badge/EF_Core-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt="EF Core">
+  <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=csharp&logoColor=white" alt="C#">
+  <img src="https://img.shields.io/badge/CRUD-28A745?style=for-the-badge&logo=databricks&logoColor=white" alt="CRUD">
+  <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT">
+</p>
 
-# Work In Progress
+This is an educational project demonstrating a secure, scalable distributed architecture built with **ASP.NET Core (10.0)** and **PostgreSQL**. The project implements **JWT Authentication**, decoupled services, and clean repository-driven **CRUD Operations**.
 
-## 📄 License
+## 📁 Project Structure
 
-This project is licensed under the **GNU General Public License v3.0** - see the [LICENSE](LICENSE) file for details.
-
-[![License: GPL v3](https://shields.io)](https://gnu.org)
-
-# Structure(dirs)
 ```text
-.
-├── docker-compose.yaml          # Docker services configuration
-├── errors/                      # Custom error handlers and exceptions
-│   ├── __init__.py              # Package initialization
-│   ├── app.py                   # FastAPI application error handlers
-│   ├── command.py               # CLI command execution errors
-│   └── service.py               # Business logic layer exceptions
-├── LICENSE                      # Project license
-├── main.py                      # Application entry point
-├── models/                      # Pydantic data validation models
-│   ├── __init__.py              # Package initialization
-│   ├── base_response.py         # Base response schema for all APIs
-│   ├── errors/                  # Error response models
-│   │   ├── __init__.py          # Package initialization
-│   │   ├── command.py           # Command execution error models
-│   │   └── service.py           # Service layer error models
-│   ├── monitor.py               # Wi-Fi monitor mode models
-│   ├── networkcards.py          # Network interface card models
-│   └── scanning.py              # Wi-Fi scanning request/response models
-├── pyproject.toml               # Project metadata and dependencies
-├── readme.md                    # Project documentation
-├── requirements.txt             # Python package dependencies
-├── routers/                     # API route handlers
-│   ├── __init__.py              # Package initialization
-│   ├── choose_network.py        # Network selection endpoints
-│   ├── handshake.py             # WPA handshake capture endpoints
-│   ├── monitor_mode.py          # Monitor mode management endpoints
-│   ├── network_cards.py         # Network card management endpoints
-│   └── wifi_scanning.py         # Wi-Fi scanning endpoints
-├── service/                     # Business logic layer
-│   ├── __init__.py              # Package initialization
-│   ├── handshake.py             # Handshake capture business logic
-│   ├── monitor_mode_service.py  # Monitor mode operations
-│   └── wifi_scanning_service.py # Wi-Fi scanning business logic
-├── state.py                     # Application state management
-└── utils/                       # Utility modules
-    ├── __init__.py              # Package initialization
-    ├── network/                 # Network-related utilities
-    │   ├── __init__.py          # Package initialization
-    │   ├── channel_hopper.py    # Channel hopping for scanning
-    │   ├── check_webcard_mode.py# Check network card operation mode
-    │   ├── deauth_packets.py    # Deauthentication packet injection
-    │   ├── get_bssid.py         # BSSID extraction utilities
-    │   ├── network_cards.py     # Network card operations
-    │   ├── network_services.py  # Network service utilities
-    │   └── wifi_core.py         # Core Wi-Fi operations
-    └── system/                  # System-level utilities
-        ├── __init__.py          # Package initialization
-        ├── check_depends.py     # Dependency verification
-        └── run_command.py       # Secure command execution wrapper
+./
+├── Controllers/               # REST Endpoints (Auth, Cards, Users)
+├── Data/                      # Database Layer
+│   ├── Interfaces/            # Repository Abstractions
+│   ├── Models/                # Database Entities (User, Card)
+│   └── Repositories/          # EF Core Repository Implementations
+├── Interfaces/                # Core Service Contracts (IJwtService)
+├── Service/                   # Business Logic & Auth Implementations
+├── Migrations/                # EF Core Database Migrations
+├── DTOs/                      # Repository Abstractions.
+│   ├── ResponseModels/        # DTOs & API Response Models
+├── Program.cs                 # Application Entry Point & DI Configuration
+├── Dockerfile                 # Application Container Specification
+└── docker-compose.yaml        # Multi-container Orchestration
 ```
 
-# 🗺️ Roadmap
+## 🚀 Key Features
 
-## 📋 Phase 1: Core Infrastructure (✅ Completed)
-
-- [x] FastAPI backend setup
-- [x] Network card management
-- [x] Monitor mode activation
-- [x] Basic Wi-Fi scanning (beacon, data, eapol frames)
-- [x] Channel hopping
-- [x] Handshake capture (in work)
+* **JWT Authentication:** Custom stateless `JwtService` managing secure token generation and validation.
+* **Generic Repository Pattern:** Abstracted Data Access Layer using decoupled Interfaces and EF Core repositories.
+* **Database Migrations:** Automated schema management for PostgreSQL using EF Core Migrations.
+* **Containerized Environment:** Fully production-ready multi-container setup running via Docker Compose.
+* **Secure Environment Variables:** Zero hardcoded secrets; configuration is driven purely via environment variables.
 
 ---
 
-## 🔬 Phase 2: WPA/WPA2 Attacks (🔄 In Progress)
+## 🛠️ Technology Stack
 
-### PMKID Attack
-- [ ] PMKID extraction from AP beacon frames
-- [ ] PMKID hash capture (without handshake)
-- [ ] Hashcat/JtR integration for cracking
-- [ ] PMKID vs Handshake comparison
-- [ ] Automated PMKID collection from multiple APs
-- [ ] PMKID database management
-
-### Multi-MAC DoS Attack
-- [ ] MAC address randomization/spoofing
-- [ ] Multiple MAC address generation
-- [ ] Deauthentication flood from multiple sources
-- [ ] Beacon flooding with fake MACs
-- [ ] Association/Disassociation DoS
-- [ ] Targeted MAC flooding (specific AP)
-- [ ] MAC blacklist/whitelist bypass techniques
-
-### Deauthentication Attacks
-- [ ] Targeted deauth attack
-- [ ] Broadcast deauth attack
-- [ ] Deauth with PMKID capture
-- [ ] Deauth frame customization
-- [ ] Deauth flood detection bypass
+* **Backend Framework:** ASP.NET Core (Web API)
+* **Security:** Microsoft.AspNetCore.Authentication.JwtBearer, System.IdentityModel.Tokens.Jwt
+* **Database:** PostgreSQL
+* **Data Access:** Entity Framework Core
+* **Containerization:** Docker & Docker Compose
 
 ---
 
-## 🌐 Phase 3: Evil Twin Attack (📅 Planned)
+## 🔧 Environment Configuration
 
-### Rogue AP Setup
-- [ ] AP cloning with same ESSID/BSSID
-- [ ] Automated captive portal creation
-- [ ] Rogue AP setup (hostapd)
-- [ ] DHCP server configuration (dnsmasq)
-- [ ] Traffic interception (MITM)
-- [ ] SSL stripping (mitmproxy)
+The application uses environment variables for infrastructure bindings, matching double underscores (`__`) to map nested JSON fields in ASP.NET Core:
 
-### Credential Harvesting
-- [ ] Phishing page templates
-- [ ] Browser fingerprinting
-- [ ] User-agent based phishing
-- [ ] OAuth/OpenID impersonation
-- [ ] Social engineering templates
-- [ ] Credential storage and analysis
-
-### Advanced Features
-- [ ] MAC address filtering bypass
-- [ ] Beacon frame spoofing
-- [ ] Channel switch announcement (CSA) attacks
-- [ ] Hidden SSID disclosure
-- [ ] WPS PIN brute force
+```env
+POSTGRES_USER=dbuser
+POSTGRES_PASSWORD=zxcursed
+POSTGRES_DB=mydb
+ConnectionStrings__DefaultConnection="Host=db;Port=5432;Database=mydb;Username=dbuser;Password=zxcursed"
+Jwt__Key=1029384756Console.WriteLinezxcursed
+```
 
 ---
 
-## 🔐 Phase 4: PMF (Protected Management Frames) Attacks (📅 Planned)
+## ⚡ Deployment with Docker Compose
 
-### PMF Detection
-- [ ] PMF detection (802.11w support check)
-- [ ] PMF configuration analysis
-- [ ] Capability negotiation analysis
-- [ ] Driver capability detection
+To spin up the entire ecosystem (Web API + PostgreSQL Database) with a single command:
 
-### PMF Exploitation
-- [ ] PMF downgrade attacks (disable PMF)
-- [ ] PMF bypass techniques
-- [ ] Deauth with PMF (overcome protection)
-- [ ] PMF vulnerability exploitation
-- [ ] PMF vs SAE interaction
-- [ ] PMF negotiation spoofing
-- [ ] PMF configuration weakness detection
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com
+   cd microservices_jwt_crud
+   ```
 
-### Advanced PMF Attacks
-- [ ] Mixed-mode exploitation
-- [ ] Legacy device targeting
-- [ ] Driver-specific bugs exploitation
-- [ ] Software-defined radio (SDR) attacks
-- [ ] Timing attacks on PMF
+2. **Launch the containers:**
+   ```bash
+   docker compose up --build -d
+   ```
 
----
-
-## 🚀 Phase 5: WPA3 Attacks (📅 Planned)
-
-### WPA3-Personal (SAE) Attacks
-- [ ] Dragonfly handshake capture
-- [ ] SAE (Simultaneous Authentication of Equals) analysis
-- [ ] SAE commit message capture
-- [ ] Password hash extraction
-- [ ] Dictionary attacks against SAE
-- [ ] Side-channel timing attacks
-- [ ] Padding Oracle attacks on Dragonfly
-- [ ] ECC (Elliptic Curve Cryptography) weakness exploitation
-- [ ] PMKID capture (WPA3 version)
-
-### WPA3-Enterprise (Suite-B) Attacks
-- [ ] TLS certificate validation bypass
-- [ ] Downgrade to WPA2-Enterprise
-- [ ] EAP-TLS attacks
-- [ ] Certificate chain exploitation
-- [ ] RADIUS reflection attacks
-
-### WPA3 Transition Mode Attacks
-- [ ] Forced downgrade to WPA2
-- [ ] Transition disable attack
-- [ ] Mixed-mode vulnerabilities
-- [ ] Credential capture in transition mode
-
----
-
-## 🛡️ Phase 6: Detection & Mitigation (📅 Planned)
-
-### Attack Detection
-- [ ] Deauth flood detection
-- [ ] Evil twin detection
-- [ ] Beacon anomaly detection
-- [ ] MAC address change detection
-- [ ] PMKID capture attempt detection
-- [ ] WPA3 downgrade detection
-- [ ] Rogue AP detection
-- [ ] KRACK attack detection
-
-### Mitigation Tools
-- [ ] 802.11w enforcement
-- [ ] PMF forced activation
-- [ ] Deauth attack prevention
-- [ ] MAC address filtering
-- [ ] Beacon protection
-- [ ] Intrusion Detection System (IDS) integration
-- [ ] Automatic countermeasures
-
----
-
-## 📊 Phase 7: Reporting & Analysis (📅 Planned)
-
-### Reporting Features
-- [ ] Automated pentest reports
-- [ ] Vulnerability scoring (CVSS)
-- [ ] Security recommendations
-- [ ] Attack timeline generation
-- [ ] Network audit trail
-- [ ] Compliance reporting (PCI-DSS, HIPAA)
-- [ ] PDF/HTML report export
-
-### Analysis Tools
-- [ ] Wireshark integration
-- [ ] pcap analysis
-- [ ] Handshake analysis
-- [ ] PMKID analysis
-- [ ] Frequency/channel analysis
-- [ ] Signal strength mapping
-- [ ] Performance metrics
-
----
-
-## 🧪 Phase 8: Automation & Integration (📅 Planned)
-
-### Automation
-- [ ] Automated attack chains
-- [ ] Scheduled security audits
-- [ ] Continuous monitoring
-- [ ] Alert system (Telegram/Email)
-- [ ] API integration with security tools
-- [ ] CI/CD security pipeline integration
-- [ ] Auto-remediation scripts
-
-### Integration
-- [ ] Metasploit module integration
-- [ ] Kali Linux tool integration
-- [ ] Nessus/OpenVAS integration
-- [ ] SIEM integration (Splunk, ELK)
-- [ ] Custom plugin architecture
-- [ ] Docker containerization
-- [ ] Cloud deployment support
-
----
-
-## 🎯 Phase 9: Advanced Exploitation (📅 Planned)
-
-### KRACK Attack
-- [ ] Four-way handshake manipulation
-- [ ] Nonce reuse exploitation
-- [ ] Zeroing of group key
-- [ ] Fast BSS Transition (FT) reinstallation
-- [ ] KRACK detection and mitigation
-
-### Fragmentation Attacks
-- [ ] Aggregation and fragmentation frame manipulation
-- [ ] A-MSDU injection
-- [ ] FragAttacks implementation
-- [ ] CVE exploitation (CVE-2020-24586, CVE-2020-24587)
-- [ ] Fragmentation attack detection
-
-### Wi-Fi Jamming
-- [ ] Channel jamming
-- [ ] Frequency hopping jamming
-- [ ] Selective jamming
-- [ ] Reactive jamming
-- [ ] Jamming detection
-
----
-
-## 🛠️ Phase 10: Hardware & Performance (📅 Planned)
-
-### Hardware Support
-- [ ] Support for multiple chipsets (Atheros, Intel, Broadcom)
-- [ ] SDR integration (HackRF, BladeRF)
-- [ ] External antenna control
-- [ ] GPS positioning for war-driving
-- [ ] Multiple interface management
-- [ ] Concurrent scanning/attacking
-- [ ] USB WiFi adapter support
-
-### Performance Optimizations
-- [ ] Multi-threading for scanning
-- [ ] GPU acceleration for cracking
-- [ ] Distributed attack support
-- [ ] Memory optimization for large captures
-- [ ] Real-time packet processing
-- [ ] Asynchronous operations
-
----
-
-## 🔮 Phase 11: Emerging Technologies (📅 Planned)
-
-### Wi-Fi 6E (6GHz) Attacks
-- [ ] 6GHz scanning support
-- [ ] Band steering attacks
-- [ ] Channel coexistence attacks
-- [ ] CQI (Channel Quality Indicator) manipulation
-- [ ] 6GHz spectrum analysis
-
-### Wi-Fi 7 (802.11be) Attacks
-- [ ] MLO (Multi-Link Operation) exploitation
-- [ ] 320MHz channel attacks
-- [ ] EHT (Extremely High Throughput) vulnerabilities
-- [ ] Multi-AP coordination attacks
-- [ ] New frame type exploitation
-
-### AI/ML Integration
-- [ ] ML-based attack detection
-- [ ] Automated attack selection
-- [ ] Predictive vulnerability analysis
-- [ ] Neural network-based password cracking
-- [ ] Anomaly detection with AI
-- [ ] Intelligent channel hopping
-
----
-
-## 📝 Additional Features
-
-### Security Features
-- [ ] Audit logging
-- [ ] Role-based access control
-- [ ] API key management
-- [ ] Secure configuration storage
-- [ ] Encrypted communication
-- [ ] Forensic capabilities
-- [ ] Two-factor authentication
-
-### Developer Experience
-- [ ] Comprehensive API documentation
-- [ ] Unit and integration tests
-- [ ] Code coverage reports
-- [ ] Performance benchmarks
-- [ ] Plugin development SDK
-- [ ] Example scripts and templates
-
-### UI/UX
-- [ ] Web dashboard (Vue.js, Chart.js)
-- [ ] Real-time monitoring (websocket)
-- [ ] Interactive visualizations
-- [ ] Mobile responsive design (adaptive site)
-- [ ] Dark/light theme
-- [ ] Keyboard shortcuts
-- [ ] Export/import configurations
-
----
-
-## 🛠️ Tools Integration
- soon
+3. **Verify the environment:**
+   The Web API will be available at `http://localhost:5000` (or your configured Docker exposed port).
