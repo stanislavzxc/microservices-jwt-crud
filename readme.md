@@ -347,7 +347,7 @@ This project is licensed under the **GNU General Public License v3.0** - see the
 - [ ] Example scripts and templates
 
 ### UI/UX
-- [ ] Web dashboard (Vue.js, Chath.js)
+- [ ] Web dashboard (Vue.js, Chart.js)
 - [ ] Real-time monitoring (websocket)
 - [ ] Interactive visualizations
 - [ ] Mobile responsive design (adaptive site)
